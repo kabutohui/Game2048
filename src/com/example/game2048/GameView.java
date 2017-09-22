@@ -1,11 +1,14 @@
 package com.example.game2048;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.app.AlertDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Point;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -278,6 +281,23 @@ public class GameView extends GridLayout {
 		}
 
 		if (failcomplete) {
+
+			Db db;
+			SQLiteDatabase dbwrite;
+			db = new Db(MainActivity.getMainActivity());
+			dbwrite = db.getWritableDatabase();
+			ContentValues cv = new ContentValues();
+
+			SimpleDateFormat sDateFormat = new SimpleDateFormat(
+					"yyyy-MM-dd hh:mm:ss");
+			String date = sDateFormat.format(new java.util.Date());
+
+			cv.put("date", date);
+			cv.put("score", MainActivity.getMainActivity().getScore());
+			cv.put("maxnum", getMaxnum());
+			dbwrite.insert("user", null, cv);
+			dbwrite.close();
+
 			new AlertDialog.Builder(getContext())
 					.setTitle("你好")
 					.setMessage("游戏已结束")
@@ -340,6 +360,17 @@ public class GameView extends GridLayout {
 								}
 							}).show();
 		}
+	}
+
+	private int getMaxnum() {
+		int max = 0;
+		for (int y = 0; y < 4; y++) {
+			for (int x = 0; x < 4; x++) {
+				if (cardMap[x][y].getNum() > max)
+					max = cardMap[x][y].getNum();
+			}
+		}
+		return max;
 	}
 
 	private void colorChanged() {
