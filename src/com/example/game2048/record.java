@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.widget.SimpleCursorAdapter;
+import android.view.Window;
 
 public class record extends ListActivity {
 
@@ -16,6 +17,10 @@ public class record extends ListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+
+		// 去掉标题栏
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
 		setContentView(R.layout.activity_record);
 
 		db = new Db(MainActivity.getMainActivity());
@@ -24,7 +29,6 @@ public class record extends ListActivity {
 		adapter = new SimpleCursorAdapter(this, R.layout.list_cell, null,
 				new String[] { "date", "score", "maxnum" }, new int[] {
 						R.id.tvDate, R.id.tvScore, R.id.tvMaxnum });
-
 		setListAdapter(adapter);
 		refreshListView();
 	}
