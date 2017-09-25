@@ -1,17 +1,12 @@
 package com.example.game2048;
 
 import android.app.ListActivity;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.Window;
 
 public class record extends ListActivity {
 
-	private SimpleCursorAdapter adapter;
-	private Db db;
-	private SQLiteDatabase dbRead;
+	// private SimpleCursorAdapter adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -22,15 +17,7 @@ public class record extends ListActivity {
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 		setContentView(R.layout.activity_record);
-
-		db = new Db(MainActivity.getMainActivity());
-		dbRead = db.getReadableDatabase();
-
-		adapter = new SimpleCursorAdapter(this, R.layout.list_cell, null,
-				new String[] { "date", "score", "maxnum" }, new int[] {
-						R.id.tvDate, R.id.tvScore, R.id.tvMaxnum });
-		setListAdapter(adapter);
-		refreshListView();
+		setListAdapter(new NewAdapter(this));
 	}
 
 	// private SimpleCursorAdapter adapter;
@@ -96,9 +83,9 @@ public class record extends ListActivity {
 	// getListView().setOnItemLongClickListener(ListViewItemLongClickListener);
 	// }
 	//
-	private void refreshListView() {
-		Cursor c = dbRead.query("user", null, null, null, null, null,
-				"score desc");
-		adapter.changeCursor(c);
-	}
+	// private void refreshListView() {
+	// Cursor c = dbRead.query("user", null, null, null, null, null,
+	// "score desc");
+	// ((CursorAdapter) adapter).changeCursor(c);
+	// }
 }
