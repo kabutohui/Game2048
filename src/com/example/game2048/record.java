@@ -3,6 +3,7 @@ package com.example.game2048;
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.Window;
+import android.widget.ImageView;
 
 public class record extends ListActivity {
 
@@ -17,9 +18,14 @@ public class record extends ListActivity {
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 		setContentView(R.layout.activity_record);
+
+		// 显示“排行榜”
+		ImageView paihangbang = (ImageView) findViewById(R.id.paihangbang);
+		paihangbang.setImageResource(R.drawable.imagepai);
+
+		// 显示数据列表
 		setListAdapter(new NewAdapter(this));
 	}
-
 	// private SimpleCursorAdapter adapter;
 	// private EditText etName, etSex;
 	// private Button btnAdd;

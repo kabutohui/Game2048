@@ -16,7 +16,7 @@ public class Db extends SQLiteOpenHelper {
 		db.execSQL("CREATE TABLE user("
 				+ "_id INTEGER PRIMARY KEY AUTOINCREMENT,"
 				+ "date TEXT DEFAULT \"\"," + "score INTEGER \"\","
-				+ "maxnum TEXT DEFAULT \"\")");
+				+ "name INTEGER \"\"," + "maxnum TEXT DEFAULT \"\")");
 	}
 
 	@Override

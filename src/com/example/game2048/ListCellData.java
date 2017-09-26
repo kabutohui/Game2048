@@ -2,16 +2,19 @@ package com.example.game2048;
 
 public class ListCellData {
 
-	public ListCellData(String date, String score, String maxNum, int iconId) {
+	public ListCellData(String date, String score, String maxNum, int iconId,
+			String username) {
 		this.date = date;
 		this.score = score;
 		this.maxNum = maxNum;
 		this.iconId = iconId;
+		this.username = username;
 	}
 
 	public String date = "";
 	public String score = "";
 	public String maxNum = "";
+	public String username = "";
 	public int iconId = 0;
 
 	public void setDate(String date) {

@@ -18,8 +18,8 @@
             android:id="@+id/tvDate"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Large Text"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:text="Medium Text"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -27,20 +27,34 @@
             android:orientation="horizontal" >
 
             <TextView
-                android:id="@+id/tvScore"
+                android:id="@+id/tvUsername"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Medium Text"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:text="Large Text"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/tvScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="#428bca"
+                android:gravity="center"
+                android:text="Large Text"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#ffffffff" />
 
             <TextView
                 android:id="@+id/tvMaxnum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Medium Text"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:layout_marginLeft="5dp"
+                android:background="#5bc0de"
+                android:gravity="center"
+                android:text="Large Text"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#ffffffff" />
         </LinearLayout>
     </LinearLayout>
 

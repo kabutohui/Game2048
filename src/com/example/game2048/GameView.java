@@ -11,9 +11,12 @@ import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Point;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.GridLayout;
+import android.widget.Toast;
 
 public class GameView extends GridLayout {
 
@@ -282,11 +285,9 @@ public class GameView extends GridLayout {
 
 		if (failcomplete) {
 
-			Db db;
-			SQLiteDatabase dbwrite;
 			db = new Db(MainActivity.getMainActivity());
 			dbwrite = db.getWritableDatabase();
-			ContentValues cv = new ContentValues();
+			cv = new ContentValues();
 
 			SimpleDateFormat sDateFormat = new SimpleDateFormat(
 					"yyyy-MM-dd hh:mm:ss");
@@ -295,32 +296,65 @@ public class GameView extends GridLayout {
 			cv.put("date", date);
 			cv.put("score", MainActivity.getMainActivity().getScore());
 			cv.put("maxnum", getMaxnum());
-			dbwrite.insert("user", null, cv);
-			dbwrite.close();
 
-			new AlertDialog.Builder(getContext())
-					.setTitle("你好")
-					.setMessage("游戏已结束")
-					.setPositiveButton("重来一次",
-							new DialogInterface.OnClickListener() {
+			AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+			builder.setTitle("游戏结束，请英雄留下您的称谓");
+			// 通过LayoutInflater来加载一个xml的布局文件作为一个View对象
+			View view = LayoutInflater.from(getContext()).inflate(
+					R.layout.dialog, null);
+			// 设置我们自己定义的布局文件作为弹出框的Content
+			builder.setView(view);
 
-								@Override
-								public void onClick(DialogInterface dialog,
-										int which) {
-									// TODO Auto-generated method stub
-									startGame();
-								}
-							})
-					.setNegativeButton("退出",
-							new DialogInterface.OnClickListener() {
+			final EditText username = (EditText) view
+					.findViewById(R.id.edUsername);
 
-								@Override
-								public void onClick(DialogInterface dialog,
-										int which) {
-									// TODO Auto-generated method stub
-									MainActivity.getMainActivity().finish();
-								}
-							}).show();
+			builder.setPositiveButton("确定",
+					new DialogInterface.OnClickListener() {
+
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							String name = username.getText().toString();
+							// 写入数据库
+							cv.put("name", name);
+							dbwrite.insert("user", null, cv);
+							dbwrite.close();
+						}
+					});
+
+			builder.setNegativeButton("算了",
+					new DialogInterface.OnClickListener() {
+
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							// TODO Auto-generated method stub
+							Toast.makeText(getContext(), "告辞！",
+									Toast.LENGTH_SHORT).show();
+						}
+					});
+			builder.show();
+			// new AlertDialog.Builder(getContext())
+			// .setTitle("你好")
+			// .setMessage("游戏已结束")
+			// .setPositiveButton("重来一次",
+			// new DialogInterface.OnClickListener() {
+			//
+			// @Override
+			// public void onClick(DialogInterface dialog,
+			// int which) {
+			// // TODO Auto-generated method stub
+			// startGame();
+			// }
+			// })
+			// .setNegativeButton("退出",
+			// new DialogInterface.OnClickListener() {
+			//
+			// @Override
+			// public void onClick(DialogInterface dialog,
+			// int which) {
+			// // TODO Auto-generated method stub
+			// MainActivity.getMainActivity().finish();
+			// }
+			// }).show();
 		}
 
 		ALL: for (int y = 0; y < 4; y++) {
@@ -439,4 +473,7 @@ public class GameView extends GridLayout {
 	private List<Point> emptyPoints = new ArrayList<Point>();
 	private static int count = 0;
 	public static GameView gameView = null;
+	private Db db;
+	private SQLiteDatabase dbwrite;
+	private ContentValues cv;
 }

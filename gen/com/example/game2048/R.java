@@ -34,22 +34,27 @@ public final class R {
         public static final int image7=0x7f020009;
         public static final int image8=0x7f02000a;
         public static final int image9=0x7f02000b;
+        public static final int imagepai=0x7f02000c;
     }
     public static final class id {
         public static final int Record=0x7f080004;
         public static final int Restart=0x7f080003;
-        public static final int action_settings=0x7f080008;
+        public static final int action_settings=0x7f08000b;
+        public static final int edUsername=0x7f080006;
         public static final int gameView=0x7f080002;
-        public static final int icon=0x7f080005;
+        public static final int icon=0x7f080007;
+        public static final int paihangbang=0x7f080005;
         public static final int tvBestScore=0x7f080001;
-        public static final int tvDate=0x7f080006;
-        public static final int tvMaxnum=0x7f080007;
+        public static final int tvDate=0x7f080008;
+        public static final int tvMaxnum=0x7f08000a;
         public static final int tvScore=0x7f080000;
+        public static final int tvUsername=0x7f080009;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
         public static final int activity_record=0x7f030001;
-        public static final int list_cell=0x7f030002;
+        public static final int dialog=0x7f030002;
+        public static final int list_cell=0x7f030003;
     }
     public static final class menu {
         public static final int main=0x7f070000;
