@@ -38,16 +38,19 @@ public class NewAdapter extends BaseAdapter {
 		}
 		count = 0;
 		while (c.moveToNext()) {
-
-			data[count] = new ListCellData(
-					c.getString(c.getColumnIndex("date")), c.getString(c
-							.getColumnIndex("score")), c.getString(c
-							.getColumnIndex("maxnum")), Icon[count],
-					c.getString(c.getColumnIndex("name")));
-			count++;
-			if (count == 10) {
-				break;
+			if (count < 10) {
+				data[count] = new ListCellData(c.getString(c
+						.getColumnIndex("date")), c.getString(c
+						.getColumnIndex("score")), c.getString(c
+						.getColumnIndex("maxnum")), Icon[count], c.getString(c
+						.getColumnIndex("name")));
+			} else {
+				// 维护数据库，只存储score排行前10的数据，多余的数据进行删除
+				dbwrite.delete("user", "score=?",
+						new String[] { c.getString(c.getColumnIndex("score")) });
 			}
+			count++;
+			System.out.println(count + "");
 		}
 		return true;
 	}
