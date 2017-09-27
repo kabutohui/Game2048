@@ -2,6 +2,8 @@ package com.example.game2048;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -55,6 +57,7 @@ public class MainActivity extends Activity {
 
 	public void showScore() {
 		tvScore.setText(score + "");
+		bestScore = getBestScore();
 		if (bestScore < score) {
 			bestScore = score;
 		}
@@ -70,9 +73,23 @@ public class MainActivity extends Activity {
 		return score;
 	}
 
+	public static int getBestScore() {
+
+		Db db = new Db(MainActivity.getMainActivity());
+		SQLiteDatabase dbRead = db.getReadableDatabase();
+		Cursor c = dbRead.query("user", null, null, null, null, null,
+				"score desc");
+		while (c.moveToNext()) {
+			bestScore = Integer
+					.parseInt((c.getString(c.getColumnIndex("score"))));
+			break;
+		}
+		return bestScore;
+	}
+
 	private TextView tvScore, tvBestScore;
 	private static MainActivity mainActivity = null;
-	private static int bestScore = 0;
+	public static int bestScore = 0;
 	private int score;
 	public static boolean btnflag = false;
 
